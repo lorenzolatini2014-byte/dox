@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TERMINALE_ROSSO // COMMUNITY</title>
+    <title>TERMINALE_ROSSO</title>
     <style>
         * {
             box-sizing: border-box;
@@ -138,40 +138,6 @@
             min-width: 180px;
         }
 
-        .chat-messages {
-            max-height: 350px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-bottom: 15px;
-            padding-right: 5px;
-        }
-
-        .chat-messages::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .chat-messages::-webkit-scrollbar-thumb {
-            background: #ff1a1a;
-        }
-
-        .msg-item {
-            border-left: 2px solid #ff1a1a;
-            background: rgba(30, 0, 0, 0.4);
-            padding: 8px 10px;
-        }
-
-        .msg-meta {
-            font-size: 0.8rem;
-            color: #cc0000;
-            margin-bottom: 4px;
-        }
-
-        .msg-text {
-            word-wrap: break-word;
-        }
-
         .error-banner {
             border: 1px solid #ff1a1a;
             background-color: #2b0000;
@@ -197,12 +163,6 @@
                 </div>
             </div>
 
-            {% if not db_attivo %}
-                <div class="error-banner">
-                    [!] AVVISO: Database non ancora collegato su Vercel. I messaggi non saranno condivisi tra utenti finché non colleghi Redis/Upstash.
-                </div>
-            {% endif %}
-
             {% if errore %}
                 <div class="error-banner">[!] {{ errore }}</div>
             {% endif %}
@@ -221,41 +181,10 @@
 
         <div class="terminal-box">
             <div class="header">
-                <span>ROOT@SERVER:~# cat text.txt</span>
+                <span>ROOT@SERVER:~# text.txt</span>
                 <span>STATUS: ONLINE</span>
             </div>
             <div class="output">{{ testo }}<span class="cursor"></span></div>
-        </div>
-
-        <div class="terminal-box">
-            <div class="header">
-                <span>CANALE // CHAT GLOBALE</span>
-                <span>SCADENZA: 365 GIORNI</span>
-            </div>
-
-            <div class="chat-messages" id="chat-box">
-                {% if messaggi %}
-                    {% for m in messaggi %}
-                        <div class="msg-item">
-                            <div class="msg-meta">[{{ m.date }}] &lt;{{ m.user }}&gt;</div>
-                            <div class="msg-text">{{ m.text }}</div>
-                        </div>
-                    {% endfor %}
-                {% else %}
-                    <div style="opacity: 0.7;">> Nessun messaggio presente o messaggi scaduti dopo 1 anno.</div>
-                {% endif %}
-            </div>
-
-            {% if utente %}
-                <form action="/chat" method="POST" class="form-row">
-                    <input type="text" name="messaggio" placeholder="Scrivi un messaggio visibile a tutti..." maxlength="500" required autocomplete="off">
-                    <button type="submit" class="btn">INVIA</button>
-                </form>
-            {% else %}
-                <p style="font-size: 0.9rem; border-top: 1px dashed #ff1a1a; padding-top: 10px;">
-                    > Clicca su <strong>"UNISCITI ALLA COMMUNITY HACKER"</strong> per scrivere nella chat.
-                </p>
-            {% endif %}
         </div>
 
     </div>
@@ -266,10 +195,6 @@
             if (panel) {
                 panel.style.display = (panel.style.display === 'block') ? 'none' : 'block';
             }
-        }
-        const chatBox = document.getElementById('chat-box');
-        if (chatBox) {
-            chatBox.scrollTop = chatBox.scrollHeight;
         }
     </script>
 </body>
